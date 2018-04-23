@@ -24,7 +24,7 @@ void mprintf(ostream& out_stm, const char *frm, ...) {
     bool prev_is_dot = false;
 
     va_list arglist;
-    va_start (arglist, format);
+    va_start(arglist, frm);
 
     while (format[i]) {
         if (prev_is_format) {
