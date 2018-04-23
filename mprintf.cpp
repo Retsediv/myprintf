@@ -1,6 +1,5 @@
 #include "mprintf.h"
 
-
 uintmax_t number_size(int n) {
     uintmax_t number_of_digits = 0;
 
@@ -12,7 +11,7 @@ uintmax_t number_size(int n) {
     return number_of_digits;
 }
 
-void mprintf(const char *frm, ...) {
+void mprintf(ostream& out_stm, const char *frm, ...) {
     string format(frm);
 
     const char *s;
@@ -64,25 +63,25 @@ void mprintf(const char *frm, ...) {
             // set width and precision params to cout
             // if left alighting
             if (width >= 0) {
-                cout.width(width);
+                out_stm.width(width);
             }
-            cout.precision(precision);
+            out_stm.precision(precision);
 
             // switch type to correctly detect the type of data and print arg
             switch (format[i]) {
                 case 's': {
                     s = va_arg(arglist, const char *);
-                    cout << s;
+                    out_stm << s;
                     break;
                 }
                 case 'd': {
                     n = va_arg(arglist, int);
-                    cout << n;
+                    out_stm << n;
                     break;
                 }
                 case 'f': {
                     f = va_arg(arglist, double);
-                    cout << f;
+                    out_stm << f;
                     break;
                 }
                 default: {
@@ -93,14 +92,14 @@ void mprintf(const char *frm, ...) {
         } else if (format[i] == '%') {
             prev_is_format = true;
         } else {
-            cout << format[i];
+            out_stm << format[i];
         }
 
         // if right alighting
         // TODO: refactor it
         if (width < 0) {
             for (int x = 0; x < abs(width); ++x) {
-                cout << " ";
+                out_stm << " ";
             }
 //            cout.width(width);
         }
@@ -113,6 +112,6 @@ void mprintf(const char *frm, ...) {
         precision = 10;
     }
 
-    cout << endl;
+    out_stm << endl;
     va_end(arglist);
 }
