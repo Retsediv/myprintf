@@ -5,15 +5,12 @@
 #include <iomanip>
 #include "mprintf.h"
 
-using std::string;
 using std::cout;
-using std::endl;
 using std::stringstream;
-using std::setw;
 
 int main() {
     // just a few tests
-    
+
     mprintf(cout, "Test string: %s", "TEST STRING!");
     mprintf(cout, "number: %d", 121);
     mprintf(cout, "number with format: %10d aaaaaaaaaaa", 121);
